@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for
+from rembg import remove
 import os
 
 app = Flask(__name__)
@@ -15,9 +16,7 @@ def index():
     return render_template('index.html', uploaded_file=None, processed_file=None, history=upload_history)
 
 @app.route('/upload', methods=['POST'])
-def upload_file():
-    from rembg import remove
-    
+def upload_file(): 
     if 'file' not in request.files:
         return "No file part", 400
 
@@ -27,15 +26,19 @@ def upload_file():
 
     input_path = os.path.join(UPLOAD_FOLDER, file.filename)
     output_path = os.path.join(PROCESSED_FOLDER, file.filename)
-
+    print(f"📥 Saving uploaded file to: {input_path}")
     file.save(input_path)
+    try:
+         with open(input_path, 'rb') as i:
+            input_image = i.read()
+         output_image = remove(input_image)
 
-    with open(input_path, 'rb') as i:
-        input_image = i.read()
-    output_image = remove(input_image)
-
-    with open(output_path, 'wb') as o:
-        o.write(output_image)
+         with open(output_path, 'wb') as o:
+            o.write(output_image)
+         print(f"✅ Processed image saved to: {output_path}")
+    except Exception as e:
+        print(f"❌ Error during processing: {e}")
+        return f"Processing failed: {e}", 500
 
     upload_history = os.listdir(UPLOAD_FOLDER)
     upload_history.sort(reverse=True)
