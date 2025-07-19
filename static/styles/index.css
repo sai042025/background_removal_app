@@ -85,7 +85,7 @@ h1 {
 .images img {
     max-width: 300px;
     border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .download-btn {
@@ -98,25 +98,66 @@ h1 {
     border-radius: 6px;
 }
 
+/* Spinner (loading animation) */
+.spinner {
+    display: none;
+    margin-top: 16px;
+    text-align: center;
+}
+
+.spinner div {
+    width: 36px;
+    height: 36px;
+    border: 5px solid #ffd700;
+    border-top: 5px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* History Gallery */
+.history-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.history-gallery img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.history-gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.6);
+}
+
 @keyframes animatedGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 footer {
-  background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
-  background-size: 600% 600%;
-  animation: animatedGradient 12s ease infinite;
-
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 500;
-  border-top-left-radius: 12px;
-  border-top-right-radius: 12px;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.4);
-  position: relative;
-  z-index: 2;
+    background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+    background-size: 600% 600%;
+    animation: animatedGradient 12s ease infinite;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 2;
 }

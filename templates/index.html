@@ -4,6 +4,42 @@
   <meta charset="UTF-8">
   <title>A1 Background Remover</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+  <style>
+    .spinner {
+      display: none;
+      margin-top: 1rem;
+    }
+    .spinner div {
+      width: 30px;
+      height: 30px;
+      border: 4px solid #4CAF50;
+      border-top: 4px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .history-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+      margin-top: 1rem;
+    }
+
+    .history-gallery img {
+      width: 100%;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+
+    .history-gallery img:hover {
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body>
   <div id="vanta-bg"></div>
@@ -13,13 +49,17 @@
     <!-- Sidebar -->
     <div class="sidebar">
       <h2>Upload History</h2>
-      <ul>
-        {% for file in history %}
-          <li><a href="{{ url_for('uploaded_file', filename=file) }}" target="_blank">{{ file }}</a></li>
-        {% else %}
-          <li>No history yet.</li>
-        {% endfor %}
-      </ul>
+      {% if history %}
+        <div class="history-gallery">
+          {% for file in history %}
+            <a href="{{ url_for('processed_file', filename=file) }}" target="_blank">
+              <img src="{{ url_for('processed_file', filename=file) }}" alt="Processed image">
+            </a>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No history yet.</p>
+      {% endif %}
     </div>
 
     <!-- Main Content -->
@@ -27,9 +67,10 @@
       <h1>A1 Background Remover</h1>
 
       <!-- Upload Form -->
-      <form method="post" action="/upload" enctype="multipart/form-data" class="upload-form">
+      <form method="post" action="/upload" enctype="multipart/form-data" class="upload-form" id="upload-form">
         <input type="file" name="file" accept="image/*" required>
         <button type="submit">Remove Background</button>
+        <div class="spinner" id="spinner"><div></div></div>
       </form>
 
       <!-- Show Original and Processed Images -->
@@ -67,9 +108,17 @@
       speed: 1.5,
       zoom: 1.0
     });
+
+    // Show loading spinner on form submit
+    const form = document.getElementById('upload-form');
+    const spinner = document.getElementById('spinner');
+    form.addEventListener('submit', () => {
+      spinner.style.display = 'block';
+    });
   </script>
+
   <footer>
-    &copy; 2025 A1 Background Remover ✨ Built with
-</footer>
+    &copy; 2025 A1 Background Remover ✨ Built For Work..
+  </footer>
 </body>
 </html>
