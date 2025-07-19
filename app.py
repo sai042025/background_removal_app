@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, send_from_directory, redirect, url_for
-from rembg import remove
 import os
 
 app = Flask(__name__)
@@ -17,6 +16,8 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    from rembg import remove
+    
     if 'file' not in request.files:
         return "No file part", 400
 
@@ -55,4 +56,5 @@ def processed_file(filename):
     return send_from_directory(PROCESSED_FOLDER, filename)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Render provides a PORT env variable
+    app.run(host="0.0.0.0", port=port, debug=True)
