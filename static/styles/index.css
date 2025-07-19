@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(-45deg, #000000, #ffff00, #444444, #000000);
+    background-size: 400% 400%;
+    animation: animatedGradient 10s ease infinite;
+    color: white;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    z-index: 1;
+    position: relative;
+}
+
+.sidebar {
+    width: 250px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    color: white;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    color: #0ff;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+.main {
+    flex: 1;
+    padding: 40px;
+    color: white;
+    overflow-y: auto;
+}
+
+h1 {
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 6px #000;
+}
+
+.upload-form input[type="file"] {
+    margin: 10px 0;
+}
+
+.upload-form button {
+    background-color: #00c3ff;
+    border: none;
+    padding: 10px 18px;
+    font-size: 1rem;
+    color: black;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.upload-form button:hover {
+    background-color: #00a3dd;
+}
+
+.images {
+    display: flex;
+    gap: 30px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.images div {
+    text-align: center;
+}
+
+.images img {
+    max-width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.download-btn {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #ffd700;
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 6px;
+}
+
+@keyframes animatedGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+footer {
+  background: linear-gradient(270deg, #0f2027, #203a43, #2c5364);
+  background-size: 600% 600%;
+  animation: animatedGradient 12s ease infinite;
+
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 2;
+}

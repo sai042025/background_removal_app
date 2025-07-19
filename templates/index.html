@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>A1 Background Remover</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+</head>
+<body>
+  <div id="vanta-bg"></div>
+  <div id="tsparticles"></div>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Upload History</h2>
+      <ul>
+        {% for file in history %}
+          <li><a href="{{ url_for('uploaded_file', filename=file) }}" target="_blank">{{ file }}</a></li>
+        {% else %}
+          <li>No history yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main">
+      <h1>A1 Background Remover</h1>
+
+      <!-- Upload Form -->
+      <form method="post" action="/upload" enctype="multipart/form-data" class="upload-form">
+        <input type="file" name="file" accept="image/*" required>
+        <button type="submit">Remove Background</button>
+      </form>
+
+      <!-- Show Original and Processed Images -->
+      {% if uploaded_file and processed_file %}
+      <div class="images">
+        <div>
+          <h3>Original</h3>
+          <img src="{{ url_for('uploaded_file', filename=uploaded_file) }}">
+        </div>
+        <div>
+          <h3>Background Removed</h3>
+          <img src="{{ url_for('processed_file', filename=processed_file) }}">
+          <br>
+          <a class="download-btn" href="{{ url_for('processed_file', filename=processed_file) }}" download>Download Image</a>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Vanta Background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+  <script>
+    VANTA.FOG({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      highlightColor: 0xffd700,
+      midtoneColor: 0x9ec6f9,
+      lowlightColor: 0x1a1a1a,
+      baseColor: 0x000000,
+      blurFactor: 0.7,
+      speed: 1.5,
+      zoom: 1.0
+    });
+  </script>
+  <footer>
+    &copy; 2025 A1 Background Remover ✨ Built with
+</footer>
+</body>
+</html>
